@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c7j6x2c5ikas"]
 
-[ext_resource type="Script" uid="uid://balgmsm1i5tkw" path="res://Scripts/EnemyCard.gd" id="1_q6tie"]
+[ext_resource type="Script" uid="uid://balgmsm1i5tkw" path="res://Scripts/OpponentCard.gd" id="1_q6tie"]
 [ext_resource type="Texture2D" uid="uid://dn1l51fylljrx" path="res://Assets/Deck.png" id="2_x8ab7"]
 [ext_resource type="Texture2D" uid="uid://xkrfi0oq5r71" path="res://Assets/KnightCard.png" id="3_xnsh3"]
 

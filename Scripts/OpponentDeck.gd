@@ -1,6 +1,6 @@
 extends Node2D
 
-const CARD_SCENE_PATH = "res://Scenes/EnemyCard.tscn"
+const CARD_SCENE_PATH = "res://Scenes/OpponentCard.tscn"
 const CARD_DRAW_SPEED = 0.2
 const STARTING_HAND_SIZE = 5
 
@@ -30,9 +30,10 @@ func draw_card():
 	var new_card = card_scene.instantiate()
 	var card_image_path = str("res://Assets/") + card_drawn_mame + ("Card.png")
 	new_card.get_node("CardImage").texture = load(card_image_path)
-	new_card.get_node("Attack").text = str(card_database_reference.CARDS[card_drawn_mame][0])
+	new_card.attack = card_database_reference.CARDS[card_drawn_mame][0]
+	new_card.get_node("Attack").text = str(new_card.attack)
 	new_card.get_node("Health").text = str(card_database_reference.CARDS[card_drawn_mame][1])
 	new_card.card_type = str(card_database_reference.CARDS[card_drawn_mame][2])
 	$"../CardManager".add_child(new_card)
 	new_card.name = "Card"
-	$"../EnemyHand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+	$"../OpponentHand".add_card_to_hand(new_card, CARD_DRAW_SPEED)

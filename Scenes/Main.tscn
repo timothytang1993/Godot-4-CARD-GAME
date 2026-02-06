@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cqow47bch5ocs"]
 
 [ext_resource type="Script" uid="uid://df210xwncxy83" path="res://Scripts/CardManager.gd" id="1_rgh2o"]
-[ext_resource type="PackedScene" uid="uid://dar05827k6dhq" path="res://Scenes/EnermyCardSlot.tscn" id="2_50glp"]
+[ext_resource type="PackedScene" uid="uid://dar05827k6dhq" path="res://Scenes/OpponentCardSlot.tscn" id="2_50glp"]
 [ext_resource type="PackedScene" uid="uid://bsfv6a62xx7f1" path="res://Scenes/CardSlot.tscn" id="2_pbw6q"]
 [ext_resource type="Script" uid="uid://ucl4lb52etov" path="res://Scripts/MagicCardSlot.gd" id="3_jw32o"]
 [ext_resource type="Script" uid="uid://baogqje4fsgp" path="res://Scripts/PlayerHand.gd" id="3_v1gob"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://bodd3sp2mamis" path="res://Scripts/InputManager.gd" id="6_v1gob"]
 [ext_resource type="Script" uid="uid://pnhlwtmia2be" path="res://Scripts/OpponentDeck.gd" id="9_4kpch"]
 [ext_resource type="Script" uid="uid://mlnoxhca3wb4" path="res://Scripts/BattleManager.gd" id="9_vy5pj"]
-[ext_resource type="Script" uid="uid://d3ct01i48rys3" path="res://Scripts/EnemyHand.gd" id="10_bmxlf"]
+[ext_resource type="Script" uid="uid://d3ct01i48rys3" path="res://Scripts/OpponentHand.gd" id="10_bmxlf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
 size = Vector2(179, 264)
@@ -182,7 +182,7 @@ script = ExtResource("9_vy5pj")
 
 [node name="BattleTimer" type="Timer" parent="."]
 
-[node name="EnemyHand" type="Node2D" parent="."]
+[node name="OpponentHand" type="Node2D" parent="."]
 script = ExtResource("10_bmxlf")
 
 [connection signal="pressed" from="EndTurnButton" to="BattleManager" method="_on_end_turn_button_pressed"]
