@@ -46,6 +46,6 @@ func animate_card_to_position(card, new_position, speed):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func remove_card_from_hand(card):
-	if card not in opponent_hand:
+	if card in opponent_hand:
 		opponent_hand.erase(card)
 		update_hand_postion(DEFAULT_CARD_MOVE_SPEED)
