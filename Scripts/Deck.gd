@@ -38,7 +38,9 @@ func draw_card():
 	var new_card = card_scene.instantiate()
 	var card_image_path = str("res://Assets/") + card_drawn_mame + ("Card.png")
 	new_card.get_node("CardImage").texture = load(card_image_path)
+	new_card.attack = card_database_reference.CARDS[card_drawn_mame][0]
 	new_card.get_node("Attack").text = str(card_database_reference.CARDS[card_drawn_mame][0])
+	new_card.health = card_database_reference.CARDS[card_drawn_mame][1]
 	new_card.get_node("Health").text = str(card_database_reference.CARDS[card_drawn_mame][1])
 	new_card.card_type = str(card_database_reference.CARDS[card_drawn_mame][2])
 	$"../CardManager".add_child(new_card)

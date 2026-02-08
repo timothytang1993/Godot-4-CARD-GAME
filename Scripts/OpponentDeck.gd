@@ -32,6 +32,7 @@ func draw_card():
 	new_card.get_node("CardImage").texture = load(card_image_path)
 	new_card.attack = card_database_reference.CARDS[card_drawn_mame][0]
 	new_card.get_node("Attack").text = str(new_card.attack)
+	new_card.health = card_database_reference.CARDS[card_drawn_mame][1]
 	new_card.get_node("Health").text = str(card_database_reference.CARDS[card_drawn_mame][1])
 	new_card.card_type = str(card_database_reference.CARDS[card_drawn_mame][2])
 	$"../CardManager".add_child(new_card)

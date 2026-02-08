@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cqow47bch5ocs"]
+[gd_scene load_steps=14 format=3 uid="uid://cqow47bch5ocs"]
 
 [ext_resource type="Script" uid="uid://df210xwncxy83" path="res://Scripts/CardManager.gd" id="1_rgh2o"]
 [ext_resource type="PackedScene" uid="uid://dar05827k6dhq" path="res://Scenes/OpponentCardSlot.tscn" id="2_50glp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://pnhlwtmia2be" path="res://Scripts/OpponentDeck.gd" id="9_4kpch"]
 [ext_resource type="Script" uid="uid://mlnoxhca3wb4" path="res://Scripts/BattleManager.gd" id="9_vy5pj"]
 [ext_resource type="Script" uid="uid://d3ct01i48rys3" path="res://Scripts/OpponentHand.gd" id="10_bmxlf"]
+[ext_resource type="Texture2D" uid="uid://cd3ovpfvvijj2" path="res://Assets/CardSlot.png" id="12_grg3l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0du0"]
 size = Vector2(179, 264)
@@ -184,5 +185,35 @@ script = ExtResource("9_vy5pj")
 
 [node name="OpponentHand" type="Node2D" parent="."]
 script = ExtResource("10_bmxlf")
+
+[node name="PlayerHealth" type="RichTextLabel" parent="."]
+offset_left = 60.0
+offset_top = 380.0
+offset_right = 100.0
+offset_bottom = 420.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="OpponentHealth" type="RichTextLabel" parent="."]
+offset_left = 60.0
+offset_top = 150.0
+offset_right = 100.0
+offset_bottom = 190.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="PlayerDiscard" type="Node2D" parent="."]
+position = Vector2(950, 400)
+scale = Vector2(0.3, 0.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerDiscard"]
+texture = ExtResource("12_grg3l")
+
+[node name="OpponentDiscard" type="Node2D" parent="."]
+position = Vector2(250, 200)
+scale = Vector2(0.3, 0.3)
+
+[node name="Sprite2D" type="Sprite2D" parent="OpponentDiscard"]
+texture = ExtResource("12_grg3l")
 
 [connection signal="pressed" from="EndTurnButton" to="BattleManager" method="_on_end_turn_button_pressed"]
