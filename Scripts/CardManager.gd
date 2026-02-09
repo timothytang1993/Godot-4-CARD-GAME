@@ -12,7 +12,7 @@ var card_being_dragged
 var is_hovering_on_card: bool = false
 var player_hand_reference
 var player_monster_card_this_turn = false
-
+var selected_monster
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport().size
@@ -36,6 +36,36 @@ func _process(delta: float) -> void:
 		#else:
 			#if card_being_dragged:
 				#finish_drag()
+func card_clicked(card):
+	# Card if card on battlefield or in hand
+	if card.card_slot_card_is_in:
+		if $"../BattleManager".is_opponent_turn == false:
+			if $"../BattleManager".player_is_attacking == false:
+				# Card on battlefield
+				if card not in $"../BattleManager".player_cards_that_attack_this_turn:
+					if $"../BattleManager".opponent_card_on_battlefield.size() == 0:
+						$"../BattleManager".direct_attack(card, "Player")
+						return
+				else:
+					select_card_for_battle(card)
+	else:
+		start_drag(card)
+
+func select_card_for_battle(card):
+	# Toggle selected card
+	if selected_monster:
+		# if card ready selected
+		if selected_monster == card:
+			card.position.y += 20
+			selected_monster = null
+		else:
+			selected_monster.position += 20
+			selected_monster = card
+			card.position.y -= 20
+	else:		
+		selected_monster = card
+		card.position.y -= 20
+	
 	
 func start_drag(card):
 	card_being_dragged = card
@@ -55,8 +85,9 @@ func finish_drag():
 				card_being_dragged.card_slot_card_is_in = card_slot_found
 				player_hand_reference.remove_card_from_hand(card_being_dragged)
 				card_being_dragged.position = card_slot_found.position
-				card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
+				#card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
 				card_slot_found.card_in_slot = true
+				card_slot_found.get_node("Area2D/CollisionShape2D").disabled = true
 				$"../BattleManager".player_card_on_battlefield.append(card_being_dragged)
 				card_being_dragged = null
 				return
@@ -66,6 +97,11 @@ func finish_drag():
 			#player_hand_reference.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 	#else:
 
+func unselect_select_monster():
+	if selected_monster:
+		selected_monster.position.y += 20
+		selected_monster = null
+		
 	
 func connect_card_signals(card):
 	card.connect("hovered", on_hovered_over_card)
@@ -76,20 +112,23 @@ func on_left_click_released():
 		finish_drag()
 
 func on_hovered_over_card(card):
+	if card.card_slot_card_is_in:
+		return
 	if !is_hovering_on_card:
 		is_hovering_on_card = true
 		highest_card(card, true)
 	
 func on_hovered_off_card(card):
-	# Check if card is not in card slot and being dragged
-	if !card.card_slot_card_is_in && !card_being_dragged:
-		highest_card(card, false)
-		# Check if hovered off card straight on to another card
-		var new_card_hovered = raycast_check_for_card()
-		if new_card_hovered:
-			highest_card(new_card_hovered, true)
-		else:
-			is_hovering_on_card = false
+	if card.defeated:
+		# Check if card is not in card slot and being dragged
+		if !card.card_slot_card_is_in && !card_being_dragged:
+			highest_card(card, false)
+			# Check if hovered off card straight on to another card
+			var new_card_hovered = raycast_check_for_card()
+			if new_card_hovered:
+				highest_card(new_card_hovered, true)
+			else:
+				is_hovering_on_card = false
 		
 func highest_card(card, hovered):
 	if hovered:
